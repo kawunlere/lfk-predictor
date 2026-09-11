@@ -1,0 +1,7 @@
+name = "lfk-predictor"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "PICKS_KV"
+id = "PLACEHOLDER_UPDATE_AFTER_KV_CREATED"
