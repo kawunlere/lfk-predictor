@@ -10,24 +10,6 @@ function bytesToInt(bytes) {
   return (bytes[0] << 24 | bytes[1] << 16 | bytes[2] << 8 | bytes[3]) >>> 0;
 }
 
-function getPositions(serverSeed, clientSeed, numMines) {
-  var positions = [];
-  var nonce = 0;
-  var maxAttempts = numMines * 10;
-  while (positions.length < numMines && nonce < maxAttempts) {
-    var msg = clientSeed + ":" + nonce;
-    hmacSha256(serverSeed, msg).then(function(bytes) {
-      var n = bytesToInt(bytes);
-      var pos = n % 25;
-      if (positions.indexOf(pos) === -1) {
-        positions.push(pos);
-      }
-    });
-    nonce++;
-  }
-  return positions.slice(0, numMines);
-}
-
 export async function analyzeMines(env, data) {
   try {
     var serverSeed = String(data.server_seed || "").trim();
